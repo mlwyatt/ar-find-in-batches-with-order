@@ -25,6 +25,7 @@ Or install it yourself as:
 ## Usage
 
 Usage is pretty much identical to find_each/find_each_in_batches, you'd just want to use the `:property_key` and `:direction` options to specify the ordering explicitly.
+
 SafetyApp usage: find_each_with_order(direction: :desc,batch_size: batch_size,property_key: column_to_sort_on,start: last_id_but_first_to_start)
 
 ## Contributing
