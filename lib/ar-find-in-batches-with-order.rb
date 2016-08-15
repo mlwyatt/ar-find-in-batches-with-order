@@ -20,7 +20,7 @@ module ActiveRecord
       strict_mode = options.delete(:strict_mode) || true
 
 
-      records = start ? (direction == :desc ? relation.where("#{sanitized_key} <= ?", start).to_a : relation.where("#{sanitized_key} >= ?", start).to_a)  : relation.to_a
+      records = start ? (direction == :desc ? relation.where(table[property_key].lteq(start)).order("#{property_key} desc").to_a : relation.where(table[property_key].gteq(start)).to_a)  : relation.to_a
 
       while records.any?
         records_size = records.size
@@ -32,7 +32,7 @@ module ActiveRecord
 
         start = records.last.try(property_key)
 
-        records = strict_mode ? (direction == :desc ? relation.where("#{sanitized_key} <= ?", start).to_a : relation.where("#{sanitized_key} >= ?", start).to_a) : (direction == :desc ? relation.where("#{sanitized_key} < ?", start).to_a : relation.where("#{sanitized_key} > ?", start).to_a)
+        records = strict_mode ? (direction == :desc ? relation.where(table[property_key].lteq(start)).order("#{property_key} desc").to_a : relation.where(table[property_key].gteq(start)).to_a) : (direction == :desc ? relation.where(table[property_key].lt(start)).order("#{property_key} desc").to_a : relation.where(table[property_key].gt(start)).to_a)
       end
     end
 
